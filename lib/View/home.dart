@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:trading_app_flutter/Components/item.dart';
+import 'package:trading_app_flutter/Components/item2.dart';
 import 'package:trading_app_flutter/Model/coinModel.dart';
 import 'package:http/http.dart' as http;
 
@@ -98,14 +99,14 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 20,
+                    height: 16,
                   ),
                   Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: myWidth*0.05),
+                    padding:  EdgeInsets.symmetric(horizontal: myWidth*0.05, vertical: myHeight*0.01),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Asset"),
+                        Text("Asset", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                         Icon(Icons.add),
                       ],
                     ),
@@ -115,12 +116,43 @@ class _HomeState extends State<Home> {
                     child: CircularProgressIndicator(),
                   ) :
                    ListView.builder(
-                    itemCount: coinMarket!.length,
+                    itemCount: 10,
                     itemBuilder: 
                   (context, index) {
                     return Item(item:  coinMarket![index]);
                   }
-                  ))
+                  ),
+                  
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: myWidth*0.03),
+                    child: Row(
+                      children: [
+                    
+                     Text("Reconmend to buy", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,),),
+                      ],
+                    
+                    ),
+                  ),
+                  Container(
+                    height: myHeight*0.22,
+                    width: myWidth,
+                    // color: Colors.green,
+                    child: 
+                    Expanded (child: 
+                    isRefreshing == true ? Center(
+                      child: CircularProgressIndicator(),
+                    ) : 
+                      ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                        return Item2(item: coinMarket![index]);
+                      }),
+                    )
+                    ,)
+                    ,
+                  
                 ],
               ),
             )
